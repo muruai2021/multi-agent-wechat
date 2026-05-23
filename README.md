@@ -2,116 +2,130 @@
 
 > 一键触发多Agent协作：选题→调研→评估→撰写→评审→HTML排版，循环迭代直到评分达标（≥90分）。
 
-## 概述
+---
 
-Multi-Agent WeChat 是一个企业级微信公众号内容创作解决方案。通过主编调度调研员、评估员、写手、评审四个专业Agent并行协作，实现从主题到高质量HTML文章的端到端创作。
+# English Version
 
-**核心特性：**
-- 多Agent并行工作，效率提升50%
-- 自动评分迭代，达标（≥90分）才交付
-- 符合微信公众号规范的HTML排版
-- 全内联CSS，适配微信编辑器
+# Multi-Agent WeChat — Multi-Agent WeChat Public Account Content Creation
 
-## 工作流程
+> One-click triggers multi-agent collaboration: topic selection → research → evaluation → writing → review → HTML formatting, iterative loop until score reaches ≥90.
+
+## Overview
+
+Multi-Agent WeChat is an enterprise-level WeChat public account content creation solution. Through Editor-in-Chief orchestrating four specialized agents - Researcher, Evaluator, Writer, and Reviewer - working in parallel, it achieves end-to-end creation from topic to high-quality HTML article.
+
+**Core Features:**
+- Multi-agent parallel work, 50% efficiency improvement
+- Automatic scoring iteration, only delivers when score ≥90
+- WeChat-compliant HTML formatting
+- Full inline CSS, compatible with WeChat editor
+
+## Workflow
 
 ```
-用户说"写一篇关于XX的文章"
+User says "Write an article about XX"
          ↓
-主编接收主题
+Editor receives topic
          ↓
-Step 1: 并行搜索（调研员 + 评估员同时工作）
+Step 1: Parallel search (Researcher + Evaluator work simultaneously)
          ↓
-Step 2: 主编汇总素材，确定文章结构
+Step 2: Editor summarizes materials, determines article structure
          ↓
-Step 3: 写手Agent出初稿
+Step 3: Writer agent produces initial draft
          ↓
-Step 4: 评审Agent打分
+Step 4: Reviewer agent scores
          ↓
-      ┌── 及格（≥90分）──┐
+      ┌── Passed (≥90)? ──┐
       ↓              ↓
-  ✅ 交付        ❌ 不及格 → 返回Step 3 修改
-                                  ↑
-                              （循环直到达标或达到6轮上限）
+  ✅ Deliver    ❌ Not passed → Return to Step 3 for revision
+                                    ↑
+                              (loop until qualified or 6-round limit)
          ↓
-Step 5: HTML排版（参照template.html版式）
+Step 5: HTML formatting (refer to template.html style)
          ↓
-Step 6: 输出HTML文件，告知用户完成
+Step 6: Output HTML file, notify user of completion
 ```
 
-## Agent团队
+## Agent Team
 
-| Agent | 输出 | 职责 |
-|-------|------|------|
-| 调研员 | 素材汇总 | 搜索三类素材（人→人、人→Agent、Agent↔Agent） |
-| 评估员 | 受众分析与结构建议 | 分析目标读者、写作时机、结构建议 |
-| 写手 | 完整文章 | 根据素材和结构要求撰写文章 |
-| 评审 | 评分报告 | 从5个维度打分，满分100，目标≥90 |
+| Agent | Output | Responsibilities |
+|-------|--------|------------------|
+| Researcher | Material summary | Search three types of materials (person→person, person→Agent, Agent↔Agent) |
+| Evaluator | Audience analysis & structure suggestions | Analyze target readers, writing timing, structure suggestions |
+| Writer | Complete article | Write article based on materials and structure requirements |
+| Reviewer | Scoring report | Score from 5 dimensions, total 100, target ≥90 |
 
-## 评审维度
+## Review Dimensions
 
-| 维度 | 分值 | 说明 |
-|------|------|------|
-| 主题契合度 | 20分 | 是否准确围绕主题，三个阶段是否清晰体现进化逻辑 |
-| 结构清晰度 | 20分 | 三段式结构是否合理，过渡是否流畅 |
-| 案例质量 | 20分 | 案例是否具体、有说服力，有细节和数据 |
-| 洞察深度 | 20分 | 每个阶段的洞察是否到位，是否有独特思考角度 |
-| 可读性与传播性 | 20分 | 语言是否生动，是否让人想转发 |
+| Dimension | Score | Description |
+|-----------|-------|-------------|
+| Topic fit | 20pts | Accurately centered on topic, three stages reflect evolution logic clearly |
+| Structure clarity | 20pts | Three-part structure reasonable, transitions smooth |
+| Case quality | 20pts | Cases specific and persuasive, with details and data |
+| Insight depth | 20pts | Insights at each stage on point, unique perspective |
+| Readability & shareability | 20pts | Language vivid, makes people want to share |
 
-## 评分迭代规则
+## Scoring Iteration Rules
 
-| 轮次 | 及格线 | 结果 |
-|------|--------|------|
-| 第1-5轮 | <90分 | 写手根据评审意见修改 |
-| 第6轮 | <90分 | 结束迭代，输出当前最高分版本 |
-| ≥90分 | ≥90分 | 达标，立即交付 |
+| Round | Pass Threshold | Result |
+|-------|----------------|--------|
+| Round 1-5 | <90pts | Writer revises based on reviewer comments |
+| Round 6 | <90pts | End iteration, output current highest score version |
+| ≥90pts | ≥90pts | Qualified, deliver immediately |
 
-## HTML排版规范
+## HTML Formatting Standards
 
-**重要：HTML必须全内联CSS** - 微信编辑器会过滤`<style>`标签，所有样式必须写在style属性里。
+**Important: HTML must use full inline CSS** - WeChat editor filters `<style>` tags, all styles must be written in style attributes.
 
-### template.html结构
+### template.html Structure
 
-- 封面：`<div>` 含 标签`<p>` + 主标题`<h1>` + 副标题`<p>` + 描述`<p>` + 核心命题引用块
-- 章节：`<h2>` + 底部2px黑线
-- 引用块：浅蓝背景 `#f5f8ff` + 左侧4px蓝线
-- 金句块：深色背景 `#1a1a1a` + 白色文字
-- 表格：浅灰表头 `#f5f5f5`
-- 分隔符：`━━━━━ ● ━━━━━`
+- Cover: `<div>` with tag `<p>` + main title `<h1>` + subtitle `<p>` + description `<p>` + core proposition quote block
+- Sections: `<h2>` + bottom 2px black line `border-bottom:2px solid #1a1a1a`
+- Quote blocks: Light blue background `#f5f8ff` + left 4px blue line `border-left:4px solid #3b82f6`
+- Highlight blocks: Dark background `#1a1a1a` + white text `<span style="color:#fff;">`
+- Tables: Light gray header `#f5f5f5` + `border:1px solid #e0e0e0`
+- Separators: `━━━━━ ● ━━━━━`
 
-输出文件名：`{文章标题}.html`
-存放路径：`/mnt/c/Users/Administrator/Desktop/`（Windows桌面）
+Output filename: `{article title}.html`
+Storage path: `/mnt/c/Users/Administrator/Desktop/` (Windows desktop)
 
-## 触发词
+## Trigger Words
 
-- "写文章"
-- "创作内容"
-- "帮我写一篇"
-- "/创作 [主题]"
+- "写文章" / "Write an article"
+- "创作内容" / "Create content"
+- "帮我写一篇" / "Help me write one"
+- "/创作 [主题]" / "/create [topic]"
 
-## 快捷指令
+## Quick Commands
 
 ```
 /创作 [主题] [字数要求] [目标读者]
+/create [topic] [word count] [target readers]
 ```
 
-示例：`/创作 商业模式进化：从人到AI Agent 2000字 创业者`
+Example: `/创作 商业模式进化：从人到AI Agent 2000字 创业者` / `/create Business model evolution: from human to AI Agent 2000 words entrepreneurs`
 
-## 目录结构
+## Directory Structure
 
 ```
 multi-agent-wechat/
-├── SKILL.md              ← 主入口
+├── SKILL.md              ← Main entry
 └── references/
-    ├── agents.md                   ← 4个Agent模板
-    ├── article_draft.md            ← 文章草稿
-    ├── article-writing-principles.md ← 写作原则（必读）
-    ├── content-data-sources.md     ← 数据源可靠性参考
-    ├── subagent-output-handling.md ← 子Agent输出处理规范
-    ├── template.html              ← HTML排版模板
-    ├── templates.md               ← 评审/交付报告模板
-    ├── test_pool.md               ← 测试用例
-    └── wechat-html-guidelines.md  ← 排版规范（必读）
+    ├── agents.md                   ← 4 Agent templates
+    ├── article_draft.md            ← Article draft
+    ├── article-writing-principles.md ← Writing principles (required reading)
+    ├── content-data-sources.md     ← Data source reliability reference
+    ├── subagent-output-handling.md ← Sub-agent output handling spec
+    ├── template.html              ← HTML formatting template
+    ├── templates.md               ← Review/delivery report templates
+    ├── test_pool.md               ← Test cases
+    └── wechat-html-guidelines.md  ← Formatting standards (required reading)
 ```
+
+## Related Skills
+
+- `skill-factory` - Skill packaging basics
+- `scale-factory` - AI employee creation
 
 ## License
 
